@@ -1,0 +1,48 @@
+# 日志文件
+logs
+*.log
+npm-debug.log*
+
+# 运行时数据
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# 目录锁定文件
+.yarn-integrity
+
+# 依赖文件
+/node_modules
+/.pnp
+.pnp.js
+
+# 编译产物
+build/
+dist/
+taro-dist/
+taro-temp/
+taro-ui-temp/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 编辑器文件
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+*.bak
+
+# 环境配置文件
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# 测试文件
+/__tests__/
+/__mocks__/
