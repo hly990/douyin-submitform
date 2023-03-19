@@ -3,6 +3,6 @@ module.exports = ({ env }) => ({
     port: env.int('PORT', 1337),
     url: env("PUBLIC_URL", "https://dy.kfer.cn"),
     app: {
-        keys: env.array('APP_KEYS'),
+        keys: env.array('APP_KEYS', ['vsvsvwfwfwv33', 'vvwvw3r2f2g']),
     },
 });
