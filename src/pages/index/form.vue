@@ -1,33 +1,34 @@
 <template>
-   <nut-form>
-      <nut-form-item label="用户类型">
-          <nut-radio-group v-model="basicData.type" direction="horizontal">
-            <nut-radio label="1">我要卖药材</nut-radio>
-            <nut-radio label="2">我要收购药材</nut-radio>
-          </nut-radio-group>
-      </nut-form-item>
-      <nut-form-item label="姓名">
-          <nut-input v-model="basicData.name"  class="nut-input-text" placeholder="请输入姓名" type="text" />
-      </nut-form-item>
-      <nut-form-item label="联系电话">
-          <nut-input v-model="basicData.mobile"  class="nut-input-text" placeholder="请输入手机号"   type="text" />
-      </nut-form-item>
-      <nut-form-item label="需求">
-          <nut-textarea  v-model="basicData.desc" placeholder="请输入需求" type="text" />
-      </nut-form-item>
-      <nut-row>
-        <nut-col :span="8">
-          <div class="flex-content">&nbsp;&nbsp;</div>
-        </nut-col>
-        <nut-col :span="8">
-          <nut-button type="default" size="large" @click="handleSubmit">提交</nut-button>
-        </nut-col>
-        <nut-col :span="8">
-          <div class="flex-content">&nbsp;&nbsp;</div>
-        </nut-col>
-      </nut-row>
-  </nut-form>
-   
+  <nut-config-provider>
+    <nut-form class="custom-form">
+        <nut-form-item class="custom-form-item" label="用户类型">
+            <nut-radio-group v-model="basicData.type" direction="horizontal">
+              <nut-radio class="custom-radio" label="1">我要卖药材</nut-radio>
+              <nut-radio class="custom-radio" label="2">我要收购药材</nut-radio>
+            </nut-radio-group>
+        </nut-form-item>
+        <nut-form-item class="custom-form-item" label="姓名">
+            <nut-input class="nut-input-text" v-model="basicData.name"  placeholder="请输入姓名" type="text" />
+        </nut-form-item>
+        <nut-form-item class="custom-form-item" label="联系电话">
+            <nut-input  class="nut-input-text" v-model="basicData.mobile"  placeholder="请输入手机号"   type="text" />
+        </nut-form-item>
+        <nut-form-item class="custom-form-item" label="需求">
+            <nut-textarea  class="nut-textarea-text"  v-model="basicData.desc" placeholder="请输入需求" type="text" />
+        </nut-form-item>
+        <nut-row class="custom-form-item">
+          <nut-col :span="8">
+            <div class="flex-content">&nbsp;&nbsp;</div>
+          </nut-col>
+          <nut-col :span="8">
+            <nut-button type="default" size="large" @click="handleSubmit">提交</nut-button>
+          </nut-col>
+          <nut-col :span="8">
+            <div class="flex-content">&nbsp;&nbsp;</div>
+          </nut-col>
+        </nut-row>
+    </nut-form>
+  </nut-config-provider>
 </template>
 
 <script>
@@ -36,9 +37,10 @@ import { request } from '@tarojs/taro';
 import Taro from '@tarojs/taro';
 import { navigateTo } from '@tarojs/router'
 import { createApp } from 'vue';
-import { Form, FormItem,Row, Col,Button  } from '@nutui/nutui-taro';
+import { ConfigProvider,Form, FormItem,Row, Col,Button  } from '@nutui/nutui-taro';
 
 const app = createApp();
+app.use(ConfigProvider);
 app.use(Form);
 app.use(FormItem);
 app.use(Row);
@@ -62,9 +64,6 @@ export default {
       console.log('Description:', basicData.desc);
 
       try {
-        // 设置 Bearer Token
-        const token = 'ea61c17529764c6fa21ca260f8ebf1b29d14487406cee70286f7e9b958b07c3d12f9f670d895c0b8fb19ce636c3b9847ea51a830156b2cadfee092f5c2133765124bb1d32c7c2308c725e17aecf7dd54c72ecda48fcd364801bd943ab217dd501a08241cab001e425b75815ef1f31981511f1b49fa09dce86c560a6ba4c8aed7';
-
         //数据校验
         if (!basicData.name) {
           Taro.showToast({ title: '姓名不能为空', icon: 'none' });
@@ -82,7 +81,7 @@ export default {
         }
 
         const response = await request({
-          url: 'http://localhost:1337/api/customers',
+          url: `${API_BASE_URL}/customers`,
           method: 'POST',
           data: {
             data: {
@@ -94,7 +93,7 @@ export default {
           },
           header: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${TOKEN}`
           },
         });
         // 提交成功后导航到成功页面
@@ -130,6 +129,32 @@ export default {
 </script>
 
 <style>
+.custom-form {
+  width: 100%;
+  height: 100vh;
+  background: url('./bk1.png');
+  background-image: url('./bk1.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.custom-form-item  {
+  background-image: url('./bk1.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+}
+
+.nut-form-item__label {
+  color: #ffffff;
+}
+
+.custom-radio .nut-radio__label {
+  color: #ffffff;
+}
+
 .form-page {
   display: flex;
   flex-direction: column;
@@ -141,6 +166,7 @@ input,
 textarea {
   border: 1px solid #ccc;
   padding: 5px;
+  font: #ccc;
 }
 
 .image-preview {
